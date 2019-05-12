@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>NEWS OF INHABITED POINTS OF UKRAINE</h1>
+    <p class="lead">        This site will help you follow the news of your locality.</p>
+    <p><a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9D%D0%B0%D1%81%D0%B5%D0%BB%D1%91%D0%BD%D0%BD%D1%8B%D0%B5_%D0%BF%D1%83%D0%BD%D0%BA%D1%82%D1%8B_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%8B_%D0%BF%D0%BE_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8F%D0%BC" class="btn btn-primary btn-lg">Settlements by regions &raquo;</a></p>
+</div>
+
+<table id="newsTable" class="display">
+    <thead>
+        <tr>
+            <th>Locality</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#newsTable").DataTable({
+                "ajax": {
+                    "url": "/NewsForm/GetData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Locality" },
+                    { "data": "Name" },
+                    { "data": "Description" }
+                ]
+            });
+        });
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            newsTable.ajax.reload();
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+    </script>
+
+    }
