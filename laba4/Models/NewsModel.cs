@@ -10,13 +10,13 @@ namespace laba4.Models
     {
         public int NewsID { get; set; }
 
-        [Required(ErrorMessage = "This field is Required")]
+        [Required(ErrorMessage = "Enter Locality")]
         public string Locality { get; set; }
 
-        [Required(ErrorMessage = "This field is Required")]
+        [Required(ErrorMessage = "Enter Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "This field is Required")]
+        [Required(ErrorMessage = "Enter Description")]
         public string Description { get; set; }
     }
 }

@@ -5,6 +5,10 @@
 
 <h2>News</h2>
 
+@if (TempData["notice"] != null) {
+    <h5 style="color:red">@TempData["notice"]</h5>
+}
+
 @using (Html.BeginForm("News", "NewsForm", FormMethod.Post, new {onsubmit = "return SubmitForm(this)" }))
 {
     @Html.HiddenFor(model => model.NewsID)
